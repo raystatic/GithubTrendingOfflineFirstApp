@@ -59,15 +59,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun subscribeToObservers() {
 
-//        viewModel.currentQuery.observe(this){
-//            if (!it.isNullOrEmpty()){
-//                mSearchView?.onActionViewExpanded()
-//                mSearchView?.setQuery(it,false)
-//            }
-//        }
-
         viewModel.trendingLiveData.distinctUntilChanged().observe(this){
-            Log.d("datadebug",it?.toString() ?: "")
             trendingRepoItemAdapter.submitData(it)
         }
         viewModel.trendingReposResponse.observe(this){

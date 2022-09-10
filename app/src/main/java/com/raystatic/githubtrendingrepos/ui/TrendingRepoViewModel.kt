@@ -26,31 +26,11 @@ class TrendingRepoViewModel @Inject constructor(
     val trendingReposResponse:LiveData<Resource<Boolean>> get() = _trendingReposResponse
 
     init {
-        //getTrendingRepoItems()
         fetchTrendingRepos()
     }
 
-//    private val _trendingRepoItems = MutableLiveData<List<TrendingRepoItem>>()
-//    val trendingLiveData:LiveData<List<TrendingRepoItem>> get() = _trendingRepoItems
-//
-//    private fun getTrendingRepoItems(){
-//        repository.getTrendingRepos()
-//            .onEach {
-//                _trendingRepoItems.value = it
-//            }
-//            .launchIn(viewModelScope)
-//    }
-//
-//    private fun getFilteredTrendingRepoItems(query: String){
-//        repository.getFilteredTrendingRepos(query)
-//            .onEach {
-//                _trendingRepoItems.value = it
-//            }
-//            .launchIn(viewModelScope)
-//    }
 
     val trendingLiveData = currentQuery.switchMap { query->
-        Log.d("queryDebug",query)
        if (query.isNullOrEmpty()){
            repository.getTrendingRepos().asLiveData()
        }else{
@@ -82,11 +62,6 @@ class TrendingRepoViewModel @Inject constructor(
 
     fun searchQuery(query:String){
         currentQuery.value = query
-//        if (query.isEmpty()){
-//            getTrendingRepoItems()
-//        }else{
-//            getFilteredTrendingRepoItems(query)
-//        }
     }
 
     companion object{
